@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  openldap:
+    command: --copy-service
+    image: osixia/openldap:latest
+    restart: always
+    container_name: openldap
+    environment:
+      TZ: Asia/Seoul
+      LDAP_ORGANISATION: "rogan"
+      LDAP_DOMAIN: "rogan.test.io"
+      LDAP_ADMIN_PASSWORD: "1234"
+    volumes:
+      - ../src/test/resources/ldap/ldifs:/container/service/slapd/assets/config/bootstrap/ldif/custom
+    ports:
+      - 389:389
+      - 636:636
+    networks:
+      - ldapnetwork
+
+  phpldapadmin:
+    image: osixia/phpldapadmin:latest
+    restart: always
+    container_name: phpldapadmin
+    environment:
+      TZ: Asia/Seoul
+      PHPLDAPADMIN_LDAP_HOSTS: "openldap"
+      PHPLDAPADMIN_HTTPS: "false"
+    ports:
+      - 9090:80
+      - 8443:443
+    links:
+      - "openldap:openldap"
+    depends_on:
+      - openldap
+    networks:
+      - ldapnetwork
+
+networks:
+  ldapnetwork:

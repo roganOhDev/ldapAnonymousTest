@@ -1,0 +1,9 @@
+dn: uid=rogan,dc=rogan,dc=test,dc=io
+uid: rogan
+sn: rogan
+cn: Rogan Oh
+objectclass: inetOrgPerson
+objectclass: person
+objectclass: top
+userpassword: {MD5}gdyb21LQTcIANtvYMT7QVQ==
+mail: rogan@google.io

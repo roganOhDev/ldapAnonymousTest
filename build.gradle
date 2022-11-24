@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id "io.freefair.lombok" version "5.2.1"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+
+//    implementation 'org.springframework.ldap:spring-ldap-core:3.0.0'
+    implementation 'org.springframework.ldap:spring-ldap-core:2.3.2.RELEASE'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task upTestLdap(type: Exec) {
+    group "test"
+    workingDir "${projectDir}"
+    commandLine "docker", "compose", "-f", "./docker/docker-compose.ldap.yml", "-p", "test-ldap", "up", "-d"
+    doLast {
+        println "Test LDAP Up!"
+    }
+}
+
+task downTestLdap(type: Exec) {
+    group "test"
+    workingDir "${projectDir}"
+    commandLine "docker", "compose", "-f", "./docker/docker-compose.ldap.yml", "-p", "test-ldap", "down"
+    doLast {
+        println "Test LDAP Down!"
+    }
+}
