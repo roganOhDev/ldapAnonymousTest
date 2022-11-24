@@ -31,7 +31,7 @@ public class Main {
         if (anonymous) {
             System.out.println("anonymous\n");
 
-            if (ldapService.authenticate("issac", "1234")) {
+            if (ldapService.authenticate("rogan", "1234")) {
                 System.out.println("success");
 
             } else {
@@ -41,7 +41,7 @@ public class Main {
         } else {
             System.out.println("non anonymous\n");
 
-            if (ldapService.authenticate("issac", "1234")) {
+            if (ldapService.authenticate("rogan", "1234")) {
                 System.out.println("success");
 
             } else {
